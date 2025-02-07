@@ -1,4 +1,12 @@
-const Home = () => {
+import SearchForm from '@/components/SearchForm';
+
+type Props = {
+  searchParams: Promise<{ query?: string }>;
+};
+
+const Home = async ({ searchParams }: Props) => {
+  const query = (await searchParams).query;
+
   return (
     <>
       <section className='pink_container'>
@@ -9,6 +17,7 @@ const Home = () => {
           Submit Ideas, Vote on Pitches, and Get Noticed in Virtual
           Competitions.
         </p>
+        <SearchForm query={query} />
       </section>
     </>
   );
