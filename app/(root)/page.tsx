@@ -1,5 +1,7 @@
 import SearchForm from '@/components/SearchForm';
-import StartupCard from '@/components/StartupCard';
+import StartupCard, { StartupCardType } from '@/components/StartupCard';
+import { sanityFetch, SanityLive } from '@/sanity/lib/live';
+import { STARTUPS_QUERY } from '@/sanity/lib/queries';
 
 type Props = {
   searchParams: Promise<{ query?: string }>;
@@ -7,18 +9,7 @@ type Props = {
 
 const Home = async ({ searchParams }: Props) => {
   const query = (await searchParams).query;
-  const posts = [
-    {
-      _createdAt: new Date(),
-      views: 55,
-      author: { _id: 1, name: 'Edson' },
-      _id: 1,
-      description: 'This is a description',
-      image: 'https://m.media-amazon.com/images/I/41ZP9GyHkKL.jpg',
-      category: 'Robots',
-      title: 'We Robots',
-    },
-  ];
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
 
   return (
     <>
@@ -47,6 +38,8 @@ const Home = async ({ searchParams }: Props) => {
           )}
         </ul>
       </section>
+
+      <SanityLive />
     </>
   );
 };
