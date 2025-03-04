@@ -14,8 +14,6 @@ const Home = async ({ searchParams }: Props) => {
   const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
   const session = await auth();
 
-  console.log(session?.id);
-
   return (
     <>
       <section className='pink_container'>
